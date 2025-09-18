@@ -4,26 +4,34 @@
 
 @layer base {
   :root {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 85.7% 97.3%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
+    /* Obsidian-like light theme */
+    --background: 0 0% 100%; /* panels/background */
+    --foreground: 240 10% 4%; /* near-black text */
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 4%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 4%;
+    /* Obsidian accent is purple */
+    --primary: 252 88% 68%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 240 10% 4%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 240 4% 46%;
+    --accent: 0 0% 96%;
+    --accent-foreground: 240 10% 4%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 88%;
+    --input: 0 0% 88%;
+    --ring: 252 88% 68%;
     --radius: 0.5rem;
+    /* charts not used yet */
+    --chart-1: 252 88% 68%;
+    --chart-2: 210 90% 60%;
+    --chart-3: 160 60% 45%;
+    --chart-4: 30 80% 55%;
+    --chart-5: 340 75% 55%;
   }
   * {
     @apply border-border;
@@ -33,5 +41,32 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+  .dark {
+    /* Obsidian-like dark theme */
+    --background: 0 0% 12%; /* #1e1e1e */
+    --foreground: 0 0% 85%; /* soft light text */
+    --card: 0 0% 16%; /* #2b2b2b */
+    --card-foreground: 0 0% 92%;
+    --popover: 0 0% 16%;
+    --popover-foreground: 0 0% 92%;
+    --primary: 252 88% 68%; /* Obsidian accent */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 14%;
+    --secondary-foreground: 0 0% 92%;
+    --muted: 0 0% 14%;
+    --muted-foreground: 0 0% 62%;
+    --accent: 0 0% 19%;
+    --accent-foreground: 0 0% 96%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 23%; /* #3a3a3a */
+    --input: 0 0% 23%;
+    --ring: 252 88% 68%;
+    --chart-1: 252 88% 68%;
+    --chart-2: 210 90% 60%;
+    --chart-3: 160 60% 45%;
+    --chart-4: 30 80% 55%;
+    --chart-5: 340 75% 55%;
   }
 }

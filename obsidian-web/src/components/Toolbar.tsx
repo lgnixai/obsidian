@@ -23,14 +23,14 @@ const Toolbar: React.FC<ToolbarProps> = ({ onSearchOpen }) => {
   } = useAppStore();
 
   return (
-    <div className="h-12 bg-gray-100 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between px-4">
+    <div className="h-12 bg-secondary border-b flex items-center justify-between px-4">
       {/* Left section - File info */}
       <div className="flex items-center">
-        <h1 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+        <h1 className="text-lg font-semibold">
           {currentFile ? currentFile.name : 'No file selected'}
         </h1>
         {currentFile && (
-          <span className="ml-2 text-xs text-gray-500 dark:text-gray-400">
+          <span className="ml-2 text-xs text-muted-foreground">
             {currentFile.path}
           </span>
         )}
@@ -41,8 +41,8 @@ const Toolbar: React.FC<ToolbarProps> = ({ onSearchOpen }) => {
         {/* Preview Toggle */}
         <button
           onClick={togglePreviewMode}
-          className={`p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 ${
-            isPreviewMode ? 'bg-blue-100 dark:bg-blue-900 text-blue-600' : 'text-gray-600 dark:text-gray-400'
+          className={`p-2 rounded-md hover:bg-accent ${
+            isPreviewMode ? 'bg-accent text-primary' : 'text-muted-foreground'
           }`}
           title={isPreviewMode ? 'Switch to Edit Mode' : 'Switch to Preview Mode'}
         >
@@ -52,7 +52,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ onSearchOpen }) => {
         {/* Theme Toggle */}
         <button
           onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-          className="p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400"
+          className="p-2 rounded-md hover:bg-accent text-muted-foreground"
           title={`Switch to ${theme === 'light' ? 'Dark' : 'Light'} Theme`}
         >
           {theme === 'light' ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
@@ -61,7 +61,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ onSearchOpen }) => {
         {/* Search */}
         <button
           onClick={onSearchOpen}
-          className="p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400"
+          className="p-2 rounded-md hover:bg-accent text-muted-foreground"
           title="Global Search (Ctrl+Shift+F)"
         >
           <Search className="w-4 h-4" />
@@ -69,7 +69,7 @@ const Toolbar: React.FC<ToolbarProps> = ({ onSearchOpen }) => {
 
         {/* Settings */}
         <button
-          className="p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-400"
+          className="p-2 rounded-md hover:bg-accent text-muted-foreground"
           title="Settings"
         >
           <Settings className="w-4 h-4" />
