@@ -144,10 +144,10 @@ const TabItem: React.FC<TabItemBaseProps> = ({
     <>
       <div
         className={`
-          group relative flex items-center px-3 py-2 min-w-0 max-w-48 cursor-pointer border-r border-gray-200 dark:border-gray-700
+          group relative flex items-center px-3 py-2 min-w-0 max-w-48 cursor-pointer border-r border-border
           ${isActive 
-            ? 'bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100' 
-            : 'bg-gray-50 dark:bg-gray-900 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+            ? 'bg-card text-foreground' 
+            : 'bg-background text-muted-foreground hover:bg-accent hover:text-accent-foreground'
           }
         `}
         onClick={() => onSwitch(tab.id)}
@@ -174,7 +174,7 @@ const TabItem: React.FC<TabItemBaseProps> = ({
         {/* Close button */}
         <button
           className={`
-            ml-2 p-0.5 rounded hover:bg-gray-200 dark:hover:bg-gray-600 opacity-0 group-hover:opacity-100 transition-opacity
+            ml-2 p-0.5 rounded-md hover:bg-accent opacity-0 group-hover:opacity-100 transition-opacity
             ${isActive ? 'opacity-100' : ''}
           `}
           onClick={(e) => {
@@ -191,14 +191,14 @@ const TabItem: React.FC<TabItemBaseProps> = ({
       {showContextMenu && (
         <div
           ref={contextMenuRef}
-          className="fixed z-50 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg py-1 min-w-48"
+          className="fixed z-50 bg-popover text-popover-foreground border border-border rounded-md shadow-lg py-1 min-w-48"
           style={{
             left: contextMenuPosition.x,
             top: contextMenuPosition.y,
           }}
         >
           <button
-            className="w-full text-left px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center"
+            className="w-full text-left px-3 py-2 text-sm hover:bg-accent flex items-center"
             onClick={() => {
               onDuplicate(tab.id);
               handleCloseContextMenu();
@@ -209,7 +209,7 @@ const TabItem: React.FC<TabItemBaseProps> = ({
           </button>
           
           <button
-            className="w-full text-left px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center"
+            className="w-full text-left px-3 py-2 text-sm hover:bg-accent flex items-center"
             onClick={() => {
               onSplit(tab.id, 'horizontal');
               handleCloseContextMenu();
@@ -220,7 +220,7 @@ const TabItem: React.FC<TabItemBaseProps> = ({
           </button>
           
           <button
-            className="w-full text-left px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center"
+            className="w-full text-left px-3 py-2 text-sm hover:bg-accent flex items-center"
             onClick={() => {
               onSplit(tab.id, 'vertical');
               handleCloseContextMenu();
@@ -230,11 +230,11 @@ const TabItem: React.FC<TabItemBaseProps> = ({
             Split Down
           </button>
 
-          <div className="border-t border-gray-200 dark:border-gray-700 my-1" />
+          <div className="border-t border-border my-1" />
           
           {tab.isPinned ? (
             <button
-              className="w-full text-left px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center"
+              className="w-full text-left px-3 py-2 text-sm hover:bg-accent flex items-center"
               onClick={() => {
                 onUnpin(tab.id);
                 handleCloseContextMenu();
@@ -245,7 +245,7 @@ const TabItem: React.FC<TabItemBaseProps> = ({
             </button>
           ) : (
             <button
-              className="w-full text-left px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center"
+              className="w-full text-left px-3 py-2 text-sm hover:bg-accent flex items-center"
               onClick={() => {
                 onPin(tab.id);
                 handleCloseContextMenu();
@@ -256,7 +256,7 @@ const TabItem: React.FC<TabItemBaseProps> = ({
             </button>
           )}
 
-          <div className="border-t border-gray-200 dark:border-gray-700 my-1" />
+          <div className="border-t border-border my-1" />
           
           <button
             className="w-full text-left px-3 py-2 text-sm hover:bg-red-50 dark:hover:bg-red-900 text-red-600 dark:text-red-400 flex items-center"
@@ -355,13 +355,13 @@ const TabBar: React.FC<TabBarProps> = ({ group, isActive }) => {
   return (
     <div 
       className={`
-        flex items-center bg-gray-100 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 min-h-10
-        ${isActive ? 'ring-1 ring-blue-500 ring-inset' : ''}
+        flex items-center bg-secondary border-b border-border min-h-10
+        ${isActive ? 'ring-1 ring-ring ring-inset' : ''}
       `}
       onClick={() => setActiveTabGroup(group.id)}
     >
       {/* 标签容器 */}
-      <div className="flex flex-1 overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600">
+      <div className="flex flex-1 overflow-x-auto scrollbar-thin">
         <DndContext
           sensors={sensors}
           collisionDetection={closestCenter}
@@ -420,7 +420,7 @@ const TabBar: React.FC<TabBarProps> = ({ group, isActive }) => {
 
       {/* 新建标签按钮 */}
       <button
-        className="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-500 dark:text-gray-400"
+        className="p-2 hover:bg-accent text-muted-foreground rounded-md"
         onClick={handleNewTab}
         title="New Tab"
       >
@@ -429,7 +429,7 @@ const TabBar: React.FC<TabBarProps> = ({ group, isActive }) => {
 
       {/* 更多选项按钮 */}
       <button
-        className="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-500 dark:text-gray-400"
+        className="p-2 hover:bg-accent text-muted-foreground rounded-md"
         title="More options"
       >
         <MoreHorizontal className="w-4 h-4" />

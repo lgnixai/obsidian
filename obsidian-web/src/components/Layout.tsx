@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAppStore } from '../stores/useAppStore';
 import { useKeyboardShortcuts } from '../hooks/useKeyboardShortcuts';
 import Sidebar from './Sidebar';
@@ -42,9 +42,19 @@ const Layout: React.FC = () => {
     },
   });
 
+  // Apply the `.dark` class to the html element so CSS variables take effect globally
+  useEffect(() => {
+    const root = document.documentElement;
+    if (theme === 'dark') {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+  }, [theme]);
+
   return (
-    <div className={`h-screen flex flex-col ${theme === 'dark' ? 'dark' : ''}`}>
-      <div className="flex-1 flex bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+    <div className={"h-screen flex flex-col"}>
+      <div className="flex-1 flex bg-background text-foreground">
         <Sidebar />
         <div className="flex-1 flex flex-col">
           <Toolbar onSearchOpen={() => setIsSearchOpen(true)} />

@@ -22,7 +22,7 @@ const Editor: React.FC = () => {
 
   if (!currentFile) {
     return (
-      <div className="flex-1 flex items-center justify-center bg-white dark:bg-gray-900 text-gray-500 dark:text-gray-400">
+      <div className="flex-1 flex items-center justify-center bg-background text-muted-foreground">
         <div className="text-center">
           <h2 className="text-xl font-semibold mb-2">No file selected</h2>
           <p>Select a file from the sidebar to start editing</p>
@@ -32,7 +32,7 @@ const Editor: React.FC = () => {
   }
 
   return (
-    <div className="flex-1 bg-white dark:bg-gray-900">
+    <div className="flex-1 bg-background">
       <MonacoEditor
         height="100%"
         language="markdown"

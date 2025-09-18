@@ -81,8 +81,8 @@ const Sidebar: React.FC = () => {
     return files.map((file) => (
       <div key={file.id}>
         <div
-          className={`flex items-center px-2 py-1 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 ${
-            currentFile?.id === file.id ? 'bg-blue-100 dark:bg-blue-900' : ''
+          className={`flex items-center px-2 py-1 cursor-pointer hover:bg-accent hover:text-accent-foreground ${
+            currentFile?.id === file.id ? 'bg-secondary text-secondary-foreground' : ''
           }`}
           style={{ paddingLeft: `${level * 16 + 8}px` }}
           onClick={() => handleFileClick(file)}
@@ -90,12 +90,12 @@ const Sidebar: React.FC = () => {
         >
           {file.type === 'folder' ? (
             file.isExpanded ? (
-              <FolderOpen className="w-4 h-4 mr-2 text-blue-500" />
+              <FolderOpen className="w-4 h-4 mr-2 text-primary" />
             ) : (
-              <Folder className="w-4 h-4 mr-2 text-blue-500" />
+              <Folder className="w-4 h-4 mr-2 text-primary" />
             )
           ) : (
-            <File className="w-4 h-4 mr-2 text-gray-600 dark:text-gray-400" />
+            <File className="w-4 h-4 mr-2 text-muted-foreground" />
           )}
           
           {editingFile === file.id ? (
@@ -108,7 +108,7 @@ const Sidebar: React.FC = () => {
                 if (e.key === 'Enter') handleRenameSubmit(file.id);
                 if (e.key === 'Escape') setEditingFile(null);
               }}
-              className="flex-1 bg-transparent border-b border-blue-500 focus:outline-none"
+              className="flex-1 bg-transparent border-b border-primary focus:outline-none"
               autoFocus
             />
           ) : (
@@ -127,27 +127,27 @@ const Sidebar: React.FC = () => {
 
   return (
     <>
-      <div className="w-64 bg-gray-50 dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col">
+      <div className="w-64 bg-secondary border-r border-border flex flex-col">
         {/* Search Bar */}
-        <div className="p-3 border-b border-gray-200 dark:border-gray-700">
+        <div className="p-3 border-b border-border">
           <div className="relative">
-            <Search className="absolute left-2 top-2 w-4 h-4 text-gray-400" />
+            <Search className="absolute left-2 top-2 w-4 h-4 text-muted-foreground" />
             <input
               type="text"
               placeholder="Search files..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-8 pr-3 py-1 text-sm bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full pl-8 pr-3 py-1 text-sm bg-background border border-border rounded focus:outline-none focus:ring-2 focus:ring-ring"
             />
           </div>
         </div>
 
         {/* New File/Folder Buttons */}
-        <div className="p-2 border-b border-gray-200 dark:border-gray-700">
+        <div className="p-2 border-b border-border">
           <div className="flex gap-1">
             <button
               onClick={() => handleNewFile('/', 'file')}
-              className="flex items-center px-2 py-1 text-xs bg-blue-500 text-white rounded hover:bg-blue-600"
+              className="flex items-center px-2 py-1 text-xs bg-primary text-primary-foreground rounded hover:bg-primary/90"
               title="New File"
             >
               <Plus className="w-3 h-3 mr-1" />
@@ -155,7 +155,7 @@ const Sidebar: React.FC = () => {
             </button>
             <button
               onClick={() => handleNewFile('/', 'folder')}
-              className="flex items-center px-2 py-1 text-xs bg-green-500 text-white rounded hover:bg-green-600"
+              className="flex items-center px-2 py-1 text-xs bg-secondary text-secondary-foreground rounded hover:bg-accent"
               title="New Folder"
             >
               <Plus className="w-3 h-3 mr-1" />
@@ -178,34 +178,34 @@ const Sidebar: React.FC = () => {
             onClick={() => setContextMenu(null)}
           />
           <div
-            className="fixed z-20 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded shadow-lg py-1"
+            className="fixed z-20 bg-popover text-popover-foreground border border-border rounded shadow-lg py-1"
             style={{ left: contextMenu.x, top: contextMenu.y }}
           >
             <button
               onClick={() => handleNewFile(contextMenu.file.path, 'file')}
-              className="w-full px-3 py-1 text-left text-sm hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center"
+              className="w-full px-3 py-1 text-left text-sm hover:bg-accent flex items-center"
             >
               <Plus className="w-4 h-4 mr-2" />
               New File
             </button>
             <button
               onClick={() => handleNewFile(contextMenu.file.path, 'folder')}
-              className="w-full px-3 py-1 text-left text-sm hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center"
+              className="w-full px-3 py-1 text-left text-sm hover:bg-accent flex items-center"
             >
               <Plus className="w-4 h-4 mr-2" />
               New Folder
             </button>
-            <hr className="my-1 border-gray-200 dark:border-gray-600" />
+            <hr className="my-1 border-border" />
             <button
               onClick={() => handleRename(contextMenu.file)}
-              className="w-full px-3 py-1 text-left text-sm hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center"
+              className="w-full px-3 py-1 text-left text-sm hover:bg-accent flex items-center"
             >
               <Edit className="w-4 h-4 mr-2" />
               Rename
             </button>
             <button
               onClick={() => handleDelete(contextMenu.file)}
-              className="w-full px-3 py-1 text-left text-sm hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center text-red-600"
+              className="w-full px-3 py-1 text-left text-sm hover:bg-red-100 dark:hover:bg-red-900/30 flex items-center text-red-600"
             >
               <Trash2 className="w-4 h-4 mr-2" />
               Delete
