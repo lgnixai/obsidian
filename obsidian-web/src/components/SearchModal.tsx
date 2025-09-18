@@ -113,33 +113,38 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      <div className="fixed inset-0 bg-black bg-opacity-50" onClick={onClose} />
-      <div className="relative bg-obsidian-bg-primary rounded-lg shadow-xl w-full max-w-2xl mx-4 max-h-[80vh] flex flex-col border border-obsidian-divider">
+ 
+      <div className="fixed inset-0 bg-black/50" onClick={onClose} />
+      <div className="relative bg-card text-card-foreground rounded-lg shadow-xl w-full max-w-2xl mx-4 max-h-[80vh] flex flex-col border border-border">
         {/* Header */}
-        <div className="flex items-center p-4 border-b border-obsidian-divider">
-          <Search className="w-5 h-5 text-obsidian-text-muted mr-3" />
-          <Input
+        <div className="flex items-center p-4 border-b border-border">
+          <Search className="w-5 h-5 text-muted-foreground mr-3" />
+          <input
+ 
             type="text"
             placeholder="Search in all files..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="flex-1 bg-transparent border-none focus-visible:ring-0 text-obsidian-text-normal placeholder:text-obsidian-text-muted"
+ 
+            className="flex-1 bg-transparent text-foreground placeholder-muted-foreground focus:outline-none"
+ 
             autoFocus
           />
           <Button
             onClick={onClose}
-            variant="ghost"
-            size="icon"
-            className="ml-3 text-obsidian-text-muted hover:text-obsidian-text-normal hover:bg-obsidian-interactive-hover"
+ 
+            className="ml-3 p-1 hover:bg-accent rounded"
           >
-            <X className="w-4 h-4" />
-          </Button>
+            <X className="w-4 h-4 text-muted-foreground" />
+          </button>
+ 
         </div>
 
         {/* Results */}
         <ScrollArea className="flex-1 p-4">
           {query.trim() && results.length === 0 && (
-            <div className="text-center text-obsidian-text-muted py-8">
+             <div className="text-center text-muted-foreground py-8">
+ 
               No results found for "{query}"
             </div>
           )}
@@ -148,14 +153,15 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
             <div key={`${result.file.id}-${resultIndex}`} className="mb-6">
               <Button
                 onClick={() => handleFileSelect(result.file)}
-                variant="ghost"
-                className="flex items-center w-full justify-start text-left p-2 h-auto hover:bg-obsidian-interactive-hover mb-2"
+ 
+                className="flex items-center w-full text-left p-2 rounded hover:bg-accent mb-2"
               >
-                <File className="w-4 h-4 text-obsidian-text-accent mr-2" />
-                <span className="font-medium text-obsidian-text-normal">
+                <File className="w-4 h-4 text-primary mr-2" />
+                <span className="font-medium text-foreground">
                   {result.file.name}
                 </span>
-                <span className="ml-2 text-xs text-obsidian-text-muted">
+                <span className="ml-2 text-xs text-muted-foreground">
+ 
                   {result.matches.length} match{result.matches.length !== 1 ? 'es' : ''}
                 </span>
               </Button>
@@ -164,10 +170,12 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
                 {result.matches.slice(0, 3).map((match, matchIndex) => (
                   <div
                     key={matchIndex}
-                    className="text-sm text-obsidian-text-muted p-2 bg-obsidian-bg-secondary rounded"
+ 
+                    className="text-sm text-muted-foreground p-2 bg-secondary rounded"
                   >
                     <div className="flex items-center mb-1">
-                      <span className="text-xs text-obsidian-text-faint mr-2">
+                      <span className="text-xs text-muted-foreground mr-2">
+ 
                         Line {match.line}:
                       </span>
                     </div>
@@ -177,7 +185,8 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
                   </div>
                 ))}
                 {result.matches.length > 3 && (
-                  <div className="text-xs text-obsidian-text-faint ml-2">
+                   <div className="text-xs text-muted-foreground ml-2">
+ 
                     +{result.matches.length - 3} more matches
                   </div>
                 )}
@@ -187,7 +196,8 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
         </ScrollArea>
 
         {/* Footer */}
-        <div className="p-3 border-t border-obsidian-divider text-xs text-obsidian-text-faint">
+         <div className="p-3 border-t border-border text-xs text-muted-foreground">
+ 
           <div className="flex justify-between">
             <span>
               {results.reduce((total, result) => total + result.matches.length, 0)} results

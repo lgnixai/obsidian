@@ -12,7 +12,7 @@ const Preview: React.FC = () => {
 
   if (!currentFile) {
     return (
-      <div className="flex-1 flex items-center justify-center bg-white dark:bg-gray-900 text-gray-500 dark:text-gray-400">
+      <div className="flex-1 flex items-center justify-center bg-background text-muted-foreground">
         <div className="text-center">
           <h2 className="text-xl font-semibold mb-2">No file selected</h2>
           <p>Select a file from the sidebar to preview</p>
@@ -22,25 +22,23 @@ const Preview: React.FC = () => {
   }
 
   return (
-    <div className="flex-1 bg-white dark:bg-gray-900 overflow-y-auto">
+    <div className="flex-1 bg-background overflow-y-auto">
       <div className="max-w-4xl mx-auto px-8 py-6">
         <div className="prose prose-gray dark:prose-invert max-w-none
-            prose-headings:text-gray-900 dark:prose-headings:text-gray-100
-            prose-p:text-gray-700 dark:prose-p:text-gray-300
-            prose-strong:text-gray-900 dark:prose-strong:text-gray-100
+            prose-headings:text-foreground
+            prose-p:text-foreground/80
+            prose-strong:text-foreground
             prose-code:text-pink-600 dark:prose-code:text-pink-400
-            prose-code:bg-gray-100 dark:prose-code:bg-gray-800
-            prose-code:px-1 prose-code:py-0.5 prose-code:rounded
-            prose-pre:bg-gray-100 dark:prose-pre:bg-gray-800
-            prose-blockquote:border-l-blue-500 dark:prose-blockquote:border-l-blue-400
-            prose-blockquote:text-gray-600 dark:prose-blockquote:text-gray-400
-            prose-a:text-blue-600 dark:prose-a:text-blue-400
-            prose-a:no-underline hover:prose-a:underline
-            prose-li:text-gray-700 dark:prose-li:text-gray-300
-            prose-table:text-gray-700 dark:prose-table:text-gray-300
-            prose-th:text-gray-900 dark:prose-th:text-gray-100
-            prose-td:border-gray-300 dark:prose-td:border-gray-600
-            prose-th:border-gray-300 dark:prose-th:border-gray-600">
+            prose-code:bg-secondary prose-code:px-1 prose-code:py-0.5 prose-code:rounded
+            prose-pre:bg-secondary
+            prose-blockquote:border-l-primary
+            prose-blockquote:text-muted-foreground
+            prose-a:text-primary hover:prose-a:underline
+            prose-li:text-foreground/80
+            prose-table:text-foreground/80
+            prose-th:text-foreground
+            prose-td:border-border
+            prose-th:border-border">
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
             components={{

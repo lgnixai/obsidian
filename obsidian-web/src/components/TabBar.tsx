@@ -146,12 +146,15 @@ const TabItem: React.FC<TabItemBaseProps> = ({
   return (
     <>
       <div
-        className={cn(
-          "group relative flex items-center px-3 py-2 min-w-0 max-w-48 cursor-pointer border-r border-obsidian-divider transition-colors",
-          isActive 
-            ? "bg-obsidian-bg-primary text-obsidian-text-normal" 
-            : "bg-obsidian-bg-secondary text-obsidian-text-muted hover:bg-obsidian-interactive-hover hover:text-obsidian-text-normal"
-        )}
+ 
+        className={`
+          group relative flex items-center px-3 py-2 min-w-0 max-w-48 cursor-pointer border-r border-border
+          ${isActive 
+            ? 'bg-card text-foreground' 
+            : 'bg-background text-muted-foreground hover:bg-accent hover:text-accent-foreground'
+          }
+        `}
+ 
         onClick={() => onSwitch(tab.id)}
         onContextMenu={handleContextMenu}
         onMouseDown={handleMiddleClick}
@@ -174,13 +177,12 @@ const TabItem: React.FC<TabItemBaseProps> = ({
         </div>
 
         {/* Close button */}
-        <Button
-          variant="ghost"
-          size="icon"
-          className={cn(
-            "ml-2 h-5 w-5 p-0.5 hover:bg-obsidian-interactive-hover opacity-0 group-hover:opacity-100 transition-opacity",
-            isActive && "opacity-100"
-          )}
+         <button
+          className={`
+            ml-2 p-0.5 rounded-md hover:bg-accent opacity-0 group-hover:opacity-100 transition-opacity
+            ${isActive ? 'opacity-100' : ''}
+          `}
+ 
           onClick={(e) => {
             e.stopPropagation();
             onClose(tab.id);
@@ -195,14 +197,16 @@ const TabItem: React.FC<TabItemBaseProps> = ({
       {showContextMenu && (
         <div
           ref={contextMenuRef}
-          className="fixed z-50 bg-obsidian-bg-primary border border-obsidian-divider rounded-md shadow-lg py-1 min-w-48"
+           className="fixed z-50 bg-popover text-popover-foreground border border-border rounded-md shadow-lg py-1 min-w-48"
+ 
           style={{
             left: contextMenuPosition.x,
             top: contextMenuPosition.y,
           }}
         >
           <button
-            className="w-full text-left px-3 py-2 text-sm hover:bg-obsidian-interactive-hover flex items-center text-obsidian-text-normal"
+             className="w-full text-left px-3 py-2 text-sm hover:bg-accent flex items-center"
+ 
             onClick={() => {
               onDuplicate(tab.id);
               handleCloseContextMenu();
@@ -213,7 +217,8 @@ const TabItem: React.FC<TabItemBaseProps> = ({
           </button>
           
           <button
-            className="w-full text-left px-3 py-2 text-sm hover:bg-obsidian-interactive-hover flex items-center text-obsidian-text-normal"
+             className="w-full text-left px-3 py-2 text-sm hover:bg-accent flex items-center"
+ 
             onClick={() => {
               onSplit(tab.id, 'horizontal');
               handleCloseContextMenu();
@@ -224,7 +229,8 @@ const TabItem: React.FC<TabItemBaseProps> = ({
           </button>
           
           <button
-            className="w-full text-left px-3 py-2 text-sm hover:bg-obsidian-interactive-hover flex items-center text-obsidian-text-normal"
+             className="w-full text-left px-3 py-2 text-sm hover:bg-accent flex items-center"
+ 
             onClick={() => {
               onSplit(tab.id, 'vertical');
               handleCloseContextMenu();
@@ -234,11 +240,12 @@ const TabItem: React.FC<TabItemBaseProps> = ({
             Split Down
           </button>
 
-          <Separator className="my-1" />
+           <div className="border-t border-border my-1" />
           
           {tab.isPinned ? (
             <button
-              className="w-full text-left px-3 py-2 text-sm hover:bg-obsidian-interactive-hover flex items-center text-obsidian-text-normal"
+              className="w-full text-left px-3 py-2 text-sm hover:bg-accent flex items-center"
+ 
               onClick={() => {
                 onUnpin(tab.id);
                 handleCloseContextMenu();
@@ -249,7 +256,8 @@ const TabItem: React.FC<TabItemBaseProps> = ({
             </button>
           ) : (
             <button
-              className="w-full text-left px-3 py-2 text-sm hover:bg-obsidian-interactive-hover flex items-center text-obsidian-text-normal"
+               className="w-full text-left px-3 py-2 text-sm hover:bg-accent flex items-center"
+ 
               onClick={() => {
                 onPin(tab.id);
                 handleCloseContextMenu();
@@ -260,7 +268,8 @@ const TabItem: React.FC<TabItemBaseProps> = ({
             </button>
           )}
 
-          <Separator className="my-1" />
+           <div className="border-t border-border my-1" />
+ 
           
           <button
             className="w-full text-left px-3 py-2 text-sm hover:bg-destructive/10 text-destructive flex items-center"
@@ -358,14 +367,15 @@ const TabBar: React.FC<TabBarProps> = ({ group, isActive }) => {
 
   return (
     <div 
-      className={cn(
-        "flex items-center bg-obsidian-bg-secondary border-b border-obsidian-divider min-h-10",
-        isActive && "ring-1 ring-obsidian-text-accent ring-inset"
-      )}
+       className={`
+        flex items-center bg-secondary border-b border-border min-h-10
+        ${isActive ? 'ring-1 ring-ring ring-inset' : ''}
+      `}
+ 
       onClick={() => setActiveTabGroup(group.id)}
     >
       {/* 标签容器 */}
-      <div className="flex flex-1 overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600">
+      <div className="flex flex-1 overflow-x-auto scrollbar-thin">
         <DndContext
           sensors={sensors}
           collisionDetection={closestCenter}
@@ -423,10 +433,9 @@ const TabBar: React.FC<TabBarProps> = ({ group, isActive }) => {
       </div>
 
       {/* 新建标签按钮 */}
-      <Button
-        variant="ghost"
-        size="icon"
-        className="text-obsidian-text-muted hover:text-obsidian-text-normal hover:bg-obsidian-interactive-hover"
+       <button
+        className="p-2 hover:bg-accent text-muted-foreground rounded-md"
+ 
         onClick={handleNewTab}
         title="New Tab"
       >
@@ -434,10 +443,9 @@ const TabBar: React.FC<TabBarProps> = ({ group, isActive }) => {
       </Button>
 
       {/* 更多选项按钮 */}
-      <Button
-        variant="ghost"
-        size="icon"
-        className="text-obsidian-text-muted hover:text-obsidian-text-normal hover:bg-obsidian-interactive-hover"
+       <button
+        className="p-2 hover:bg-accent text-muted-foreground rounded-md"
+ 
         title="More options"
       >
         <MoreHorizontal className="w-4 h-4" />

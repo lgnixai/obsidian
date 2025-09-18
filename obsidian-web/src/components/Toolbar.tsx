@@ -26,14 +26,16 @@ const Toolbar: React.FC<ToolbarProps> = ({ onSearchOpen }) => {
   } = useAppStore();
 
   return (
-    <div className="h-12 bg-obsidian-bg-secondary border-b border-obsidian-divider flex items-center justify-between px-4">
+ 
+    <div className="h-12 bg-secondary border-b border-border flex items-center justify-between px-4">
       {/* Left section - File info */}
       <div className="flex items-center">
-        <h1 className="text-lg font-semibold text-obsidian-text-normal">
+        <h1 className="text-lg font-semibold text-foreground">
           {currentFile ? currentFile.name : 'No file selected'}
         </h1>
         {currentFile && (
-          <span className="ml-2 text-xs text-obsidian-text-muted">
+          <span className="ml-2 text-xs text-muted-foreground">
+ 
             {currentFile.path}
           </span>
         )}
@@ -44,12 +46,11 @@ const Toolbar: React.FC<ToolbarProps> = ({ onSearchOpen }) => {
         {/* Preview Toggle */}
         <Button
           onClick={togglePreviewMode}
-          variant="ghost"
-          size="icon"
-          className={cn(
-            "text-obsidian-text-muted hover:text-obsidian-text-normal hover:bg-obsidian-interactive-hover",
-            isPreviewMode && "bg-obsidian-interactive-accent text-white hover:bg-obsidian-interactive-accent/90"
-          )}
+ 
+          className={`p-2 rounded-md hover:bg-accent ${
+            isPreviewMode ? 'bg-accent text-accent-foreground' : 'text-muted-foreground'
+          }`}
+ 
           title={isPreviewMode ? 'Switch to Edit Mode' : 'Switch to Preview Mode'}
         >
           {isPreviewMode ? <Edit3 className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -60,9 +61,8 @@ const Toolbar: React.FC<ToolbarProps> = ({ onSearchOpen }) => {
         {/* Theme Toggle */}
         <Button
           onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-          variant="ghost"
-          size="icon"
-          className="text-obsidian-text-muted hover:text-obsidian-text-normal hover:bg-obsidian-interactive-hover"
+           className="p-2 rounded-md hover:bg-accent text-muted-foreground"
+ 
           title={`Switch to ${theme === 'light' ? 'Dark' : 'Light'} Theme`}
         >
           {theme === 'light' ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
@@ -71,19 +71,17 @@ const Toolbar: React.FC<ToolbarProps> = ({ onSearchOpen }) => {
         {/* Search */}
         <Button
           onClick={onSearchOpen}
-          variant="ghost"
-          size="icon"
-          className="text-obsidian-text-muted hover:text-obsidian-text-normal hover:bg-obsidian-interactive-hover"
+           className="p-2 rounded-md hover:bg-accent text-muted-foreground"
+ 
           title="Global Search (Ctrl+Shift+F)"
         >
           <Search className="w-4 h-4" />
         </Button>
 
         {/* Settings */}
-        <Button
-          variant="ghost"
-          size="icon"
-          className="text-obsidian-text-muted hover:text-obsidian-text-normal hover:bg-obsidian-interactive-hover"
+         <button
+          className="p-2 rounded-md hover:bg-accent text-muted-foreground"
+ 
           title="Settings"
         >
           <Settings className="w-4 h-4" />
