@@ -35,3 +35,9 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .prose h1, .prose h2, .prose h3 {
+    @apply font-semibold;
+  }
+}
