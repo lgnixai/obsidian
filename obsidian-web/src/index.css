@@ -4,6 +4,7 @@
 
 @layer base {
   :root {
+ 
     /* Obsidian-like light theme */
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
@@ -32,6 +33,7 @@
     --chart-3: 173 58% 39%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+ 
   }
   * {
     @apply border-border;
@@ -41,7 +43,7 @@
   }
   body {
     @apply bg-background text-foreground;
-  }
+   }
   .dark {
     /* Obsidian-like dark theme */
     --background: 240 10% 4%;
@@ -68,5 +70,6 @@
     --chart-3: 173 58% 39%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+ 
   }
 }

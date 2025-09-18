@@ -9,6 +9,9 @@ import {
   Copy,
   PinOff
 } from 'lucide-react';
+import { Button } from './ui/button';
+import { Separator } from './ui/separator';
+import { cn } from '../lib/utils';
 import {
   DndContext,
   closestCenter,
@@ -143,6 +146,7 @@ const TabItem: React.FC<TabItemBaseProps> = ({
   return (
     <>
       <div
+ 
         className={`
           group relative flex items-center px-3 py-2 min-w-0 max-w-48 cursor-pointer border-r border-border
           ${isActive 
@@ -150,6 +154,7 @@ const TabItem: React.FC<TabItemBaseProps> = ({
             : 'bg-background text-muted-foreground hover:bg-accent hover:text-accent-foreground'
           }
         `}
+ 
         onClick={() => onSwitch(tab.id)}
         onContextMenu={handleContextMenu}
         onMouseDown={handleMiddleClick}
@@ -158,7 +163,7 @@ const TabItem: React.FC<TabItemBaseProps> = ({
       >
         {/* Pin indicator */}
         {tab.isPinned && (
-          <Pin className="w-3 h-3 mr-1 flex-shrink-0 text-blue-500" />
+          <Pin className="w-3 h-3 mr-1 flex-shrink-0 text-obsidian-text-accent" />
         )}
         
         {/* File icon and title */}
@@ -172,11 +177,12 @@ const TabItem: React.FC<TabItemBaseProps> = ({
         </div>
 
         {/* Close button */}
-        <button
+         <button
           className={`
             ml-2 p-0.5 rounded-md hover:bg-accent opacity-0 group-hover:opacity-100 transition-opacity
             ${isActive ? 'opacity-100' : ''}
           `}
+ 
           onClick={(e) => {
             e.stopPropagation();
             onClose(tab.id);
@@ -184,21 +190,23 @@ const TabItem: React.FC<TabItemBaseProps> = ({
           title="Close tab"
         >
           <X className="w-3 h-3" />
-        </button>
+        </Button>
       </div>
 
       {/* Context Menu */}
       {showContextMenu && (
         <div
           ref={contextMenuRef}
-          className="fixed z-50 bg-popover text-popover-foreground border border-border rounded-md shadow-lg py-1 min-w-48"
+           className="fixed z-50 bg-popover text-popover-foreground border border-border rounded-md shadow-lg py-1 min-w-48"
+ 
           style={{
             left: contextMenuPosition.x,
             top: contextMenuPosition.y,
           }}
         >
           <button
-            className="w-full text-left px-3 py-2 text-sm hover:bg-accent flex items-center"
+             className="w-full text-left px-3 py-2 text-sm hover:bg-accent flex items-center"
+ 
             onClick={() => {
               onDuplicate(tab.id);
               handleCloseContextMenu();
@@ -209,7 +217,8 @@ const TabItem: React.FC<TabItemBaseProps> = ({
           </button>
           
           <button
-            className="w-full text-left px-3 py-2 text-sm hover:bg-accent flex items-center"
+             className="w-full text-left px-3 py-2 text-sm hover:bg-accent flex items-center"
+ 
             onClick={() => {
               onSplit(tab.id, 'horizontal');
               handleCloseContextMenu();
@@ -220,7 +229,8 @@ const TabItem: React.FC<TabItemBaseProps> = ({
           </button>
           
           <button
-            className="w-full text-left px-3 py-2 text-sm hover:bg-accent flex items-center"
+             className="w-full text-left px-3 py-2 text-sm hover:bg-accent flex items-center"
+ 
             onClick={() => {
               onSplit(tab.id, 'vertical');
               handleCloseContextMenu();
@@ -230,11 +240,12 @@ const TabItem: React.FC<TabItemBaseProps> = ({
             Split Down
           </button>
 
-          <div className="border-t border-border my-1" />
+           <div className="border-t border-border my-1" />
           
           {tab.isPinned ? (
             <button
               className="w-full text-left px-3 py-2 text-sm hover:bg-accent flex items-center"
+ 
               onClick={() => {
                 onUnpin(tab.id);
                 handleCloseContextMenu();
@@ -245,7 +256,8 @@ const TabItem: React.FC<TabItemBaseProps> = ({
             </button>
           ) : (
             <button
-              className="w-full text-left px-3 py-2 text-sm hover:bg-accent flex items-center"
+               className="w-full text-left px-3 py-2 text-sm hover:bg-accent flex items-center"
+ 
               onClick={() => {
                 onPin(tab.id);
                 handleCloseContextMenu();
@@ -256,10 +268,11 @@ const TabItem: React.FC<TabItemBaseProps> = ({
             </button>
           )}
 
-          <div className="border-t border-border my-1" />
+           <div className="border-t border-border my-1" />
+ 
           
           <button
-            className="w-full text-left px-3 py-2 text-sm hover:bg-red-50 dark:hover:bg-red-900 text-red-600 dark:text-red-400 flex items-center"
+            className="w-full text-left px-3 py-2 text-sm hover:bg-destructive/10 text-destructive flex items-center"
             onClick={() => {
               onClose(tab.id);
               handleCloseContextMenu();
@@ -354,10 +367,11 @@ const TabBar: React.FC<TabBarProps> = ({ group, isActive }) => {
 
   return (
     <div 
-      className={`
+       className={`
         flex items-center bg-secondary border-b border-border min-h-10
         ${isActive ? 'ring-1 ring-ring ring-inset' : ''}
       `}
+ 
       onClick={() => setActiveTabGroup(group.id)}
     >
       {/* 标签容器 */}
@@ -391,7 +405,7 @@ const TabBar: React.FC<TabBarProps> = ({ group, isActive }) => {
           
           {/* 分隔线 */}
           {pinnedTabs.length > 0 && unpinnedTabs.length > 0 && (
-            <div className="w-px bg-gray-300 dark:bg-gray-600 mx-1 self-stretch" />
+            <Separator orientation="vertical" className="mx-1 self-stretch h-6" />
           )}
           
           {/* 普通标签 */}
@@ -419,21 +433,23 @@ const TabBar: React.FC<TabBarProps> = ({ group, isActive }) => {
       </div>
 
       {/* 新建标签按钮 */}
-      <button
+       <button
         className="p-2 hover:bg-accent text-muted-foreground rounded-md"
+ 
         onClick={handleNewTab}
         title="New Tab"
       >
         <Plus className="w-4 h-4" />
-      </button>
+      </Button>
 
       {/* 更多选项按钮 */}
-      <button
+       <button
         className="p-2 hover:bg-accent text-muted-foreground rounded-md"
+ 
         title="More options"
       >
         <MoreHorizontal className="w-4 h-4" />
-      </button>
+      </Button>
     </div>
   );
 };

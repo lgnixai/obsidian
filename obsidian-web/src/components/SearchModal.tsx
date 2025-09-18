@@ -2,6 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Search, X, File } from 'lucide-react';
 import { useAppStore } from '../stores/useAppStore';
 import type { FileNode } from '../types';
+import { Button } from './ui/button';
+import { Input } from './ui/input';
+import { ScrollArea } from './ui/scroll-area';
+import { Separator } from './ui/separator';
+import { cn } from '../lib/utils';
 
 interface SearchResult {
   file: FileNode;
@@ -96,7 +101,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
     return (
       <>
         {text.slice(0, matchStart)}
-        <span className="bg-yellow-200 dark:bg-yellow-800 px-1 rounded">
+        <span className="bg-obsidian-text-accent/20 text-obsidian-text-accent px-1 rounded">
           {text.slice(matchStart, matchEnd)}
         </span>
         {text.slice(matchEnd)}
@@ -108,39 +113,47 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
+ 
       <div className="fixed inset-0 bg-black/50" onClick={onClose} />
       <div className="relative bg-card text-card-foreground rounded-lg shadow-xl w-full max-w-2xl mx-4 max-h-[80vh] flex flex-col border border-border">
         {/* Header */}
         <div className="flex items-center p-4 border-b border-border">
           <Search className="w-5 h-5 text-muted-foreground mr-3" />
           <input
+ 
             type="text"
             placeholder="Search in all files..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
+ 
             className="flex-1 bg-transparent text-foreground placeholder-muted-foreground focus:outline-none"
+ 
             autoFocus
           />
-          <button
+          <Button
             onClick={onClose}
+ 
             className="ml-3 p-1 hover:bg-accent rounded"
           >
             <X className="w-4 h-4 text-muted-foreground" />
           </button>
+ 
         </div>
 
         {/* Results */}
-        <div className="flex-1 overflow-y-auto p-4">
+        <ScrollArea className="flex-1 p-4">
           {query.trim() && results.length === 0 && (
-            <div className="text-center text-muted-foreground py-8">
+             <div className="text-center text-muted-foreground py-8">
+ 
               No results found for "{query}"
             </div>
           )}
 
           {results.map((result, resultIndex) => (
             <div key={`${result.file.id}-${resultIndex}`} className="mb-6">
-              <button
+              <Button
                 onClick={() => handleFileSelect(result.file)}
+ 
                 className="flex items-center w-full text-left p-2 rounded hover:bg-accent mb-2"
               >
                 <File className="w-4 h-4 text-primary mr-2" />
@@ -148,18 +161,21 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
                   {result.file.name}
                 </span>
                 <span className="ml-2 text-xs text-muted-foreground">
+ 
                   {result.matches.length} match{result.matches.length !== 1 ? 'es' : ''}
                 </span>
-              </button>
+              </Button>
 
               <div className="ml-6 space-y-1">
                 {result.matches.slice(0, 3).map((match, matchIndex) => (
                   <div
                     key={matchIndex}
+ 
                     className="text-sm text-muted-foreground p-2 bg-secondary rounded"
                   >
                     <div className="flex items-center mb-1">
                       <span className="text-xs text-muted-foreground mr-2">
+ 
                         Line {match.line}:
                       </span>
                     </div>
@@ -169,17 +185,19 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
                   </div>
                 ))}
                 {result.matches.length > 3 && (
-                  <div className="text-xs text-muted-foreground ml-2">
+                   <div className="text-xs text-muted-foreground ml-2">
+ 
                     +{result.matches.length - 3} more matches
                   </div>
                 )}
               </div>
             </div>
           ))}
-        </div>
+        </ScrollArea>
 
         {/* Footer */}
-        <div className="p-3 border-t border-border text-xs text-muted-foreground">
+         <div className="p-3 border-t border-border text-xs text-muted-foreground">
+ 
           <div className="flex justify-between">
             <span>
               {results.reduce((total, result) => total + result.matches.length, 0)} results

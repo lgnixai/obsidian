@@ -8,7 +8,7 @@ export default {
     "./src/**/*.{ts,tsx}",
   ],
   theme: {
-  	container: {
+   	container: {
   		center: true,
   		padding: '2rem',
   		screens: {
@@ -93,6 +93,7 @@ export default {
   			}
   		}
   	}
+ 
   },
   plugins: [tailwindcssAnimate, require('@tailwindcss/typography')],
 }

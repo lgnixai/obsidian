@@ -53,8 +53,10 @@ const Layout: React.FC = () => {
   }, [theme]);
 
   return (
+ 
     <div className={"h-screen flex flex-col"}>
       <div className="flex-1 flex bg-background text-foreground">
+ 
         <Sidebar />
         <div className="flex-1 flex flex-col">
           <Toolbar onSearchOpen={() => setIsSearchOpen(true)} />

@@ -9,9 +9,11 @@ const Workspace: React.FC = () => {
 
   if (workspace.groups.length === 0) {
     return (
+ 
       <div className="flex-1 flex items-center justify-center bg-background text-muted-foreground">
+ 
         <div className="text-center">
-          <h2 className="text-xl font-semibold mb-2">No tabs open</h2>
+          <h2 className="text-xl font-semibold mb-2 text-obsidian-text-normal">No tabs open</h2>
           <p>Open a file from the sidebar to start editing</p>
         </div>
       </div>
@@ -44,7 +46,8 @@ const Workspace: React.FC = () => {
           
           {/* 非活动组显示占位符 */}
           {!isActive && (
-            <div className="flex-1 bg-secondary flex items-center justify-center text-muted-foreground">
+             <div className="flex-1 bg-secondary flex items-center justify-center text-muted-foreground">
+ 
               <div className="text-center">
                 <p className="text-sm">Click to activate this tab group</p>
                 {group.activeTabId && (
@@ -80,7 +83,8 @@ const Workspace: React.FC = () => {
             {index < workspace.groups.length - 1 && (
               <div 
                 className={`
-                  bg-border hover:bg-ring transition-colors cursor-col-resize
+                   bg-border hover:bg-ring transition-colors cursor-col-resize
+ 
                   ${workspace.splitDirection === 'horizontal' ? 'w-1 min-w-1' : 'h-1 min-h-1'}
                 `}
               />
@@ -92,7 +96,8 @@ const Workspace: React.FC = () => {
   };
 
   return (
-    <div className="flex-1 flex flex-col bg-background">
+     <div className="flex-1 flex flex-col bg-background">
+ 
       {renderSplitLayout()}
     </div>
   );

@@ -10,12 +10,14 @@ A web-based clone of Obsidian built with React, TypeScript, and Tailwind CSS. Th
 - **👁️ Live Preview**: Real-time Markdown rendering with GitHub Flavored Markdown support
 - **📁 File Management**: Create, delete, rename files and folders with a tree-view sidebar
 - **🔍 Global Search**: Full-text search across all files with result highlighting
-- **🎨 Theme Support**: Dark/Light theme switching with system preference detection
+- **🎨 Theme Support**: Dark/Light theme switching with Obsidian-inspired color scheme
+- **🎨 shadcn/ui Integration**: Modern UI components with Obsidian styling
 - **⌨️ Keyboard Shortcuts**: 
   - `Ctrl/Cmd + Shift + F`: Global search
   - `Ctrl/Cmd + E`: Toggle preview mode
   - `Ctrl/Cmd + Shift + T`: Toggle theme
 - **📱 Responsive Design**: Optimized for desktop and mobile devices
+- **🎯 Obsidian-like UI**: Authentic Obsidian appearance with modern component library
 
 ### 🎯 User Interface
 
@@ -28,7 +30,8 @@ A web-based clone of Obsidian built with React, TypeScript, and Tailwind CSS. Th
 ## 🛠️ Tech Stack
 
 - **Frontend**: React 19, TypeScript
-- **Styling**: Tailwind CSS, Tailwind Typography
+- **Styling**: Tailwind CSS, shadcn/ui, Tailwind Typography
+- **UI Components**: shadcn/ui with Obsidian-inspired theme
 - **Editor**: Monaco Editor
 - **Markdown**: React Markdown with remark-gfm
 - **State Management**: Zustand
@@ -76,6 +79,12 @@ The built files will be in the `dist` directory.
 ```
 src/
 ├── components/          # React components
+│   ├── ui/             # shadcn/ui components
+│   │   ├── button.tsx  # Button component
+│   │   ├── input.tsx   # Input component
+│   │   ├── card.tsx    # Card component
+│   │   ├── separator.tsx # Separator component
+│   │   └── scroll-area.tsx # ScrollArea component
 │   ├── Layout.tsx      # Main layout component
 │   ├── Sidebar.tsx     # File browser sidebar
 │   ├── Toolbar.tsx     # Top toolbar
@@ -84,12 +93,13 @@ src/
 │   └── SearchModal.tsx # Global search modal
 ├── hooks/              # Custom React hooks
 │   └── useKeyboardShortcuts.ts
+├── lib/                # Utility libraries
+│   └── utils.ts        # shadcn/ui utility functions
 ├── stores/             # Zustand state management
 │   └── useAppStore.ts  # Main application store
 ├── types/              # TypeScript type definitions
 │   └── index.ts
 ├── utils/              # Utility functions
-├── styles/             # Additional CSS styles
 └── App.tsx            # Main application component
 ```
 
@@ -132,11 +142,22 @@ src/
 
 ## 🔧 Configuration
 
-The application uses Tailwind CSS for styling. You can customize the theme by modifying:
+The application uses shadcn/ui with Tailwind CSS for styling. You can customize the theme by modifying:
 
-- `tailwind.config.js`: Tailwind configuration
-- `src/App.css`: Custom CSS styles
-- `src/index.css`: Global styles
+- `tailwind.config.js`: Tailwind configuration with Obsidian color scheme
+- `src/index.css`: CSS variables for Obsidian-inspired theme colors
+- `components.json`: shadcn/ui configuration
+- `src/components/ui/`: shadcn/ui components with custom Obsidian styling
+
+### Theme Colors
+
+The application includes custom Obsidian-inspired color variables:
+- `--obsidian-bg-primary`: Primary background color
+- `--obsidian-bg-secondary`: Secondary background color
+- `--obsidian-text-normal`: Normal text color
+- `--obsidian-text-muted`: Muted text color
+- `--obsidian-text-accent`: Accent color (purple)
+- `--obsidian-interactive-*`: Interactive element colors
 
 ## 🤝 Contributing
 
