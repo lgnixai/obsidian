@@ -1,35 +1,32 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import Sidebar from './components/Sidebar'
+import Editor from './components/Editor'
+import Preview from './components/Preview'
+import { VaultProvider } from './store/vault'
+import { useState } from 'react'
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [showPreview, setShowPreview] = useState(true)
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <VaultProvider>
+      <div className="h-full grid" style={{ gridTemplateRows: '40px 1fr' }}>
+        <header className="border-b border-border flex items-center justify-between px-3">
+          <div className="font-semibold">Obsidian Web</div>
+          <div className="flex items-center gap-2">
+            <button className="text-sm px-2 py-1 hover:bg-secondary rounded" onClick={() => setShowPreview((v) => !v)}>
+              {showPreview ? 'Hide Preview' : 'Show Preview'}
+            </button>
+          </div>
+        </header>
+        <div className="grid" style={{ gridTemplateColumns: showPreview ? '256px 1fr 1fr' : '256px 1fr' }}>
+          <Sidebar />
+          <div className="border-r border-border overflow-hidden">
+            <Editor />
+          </div>
+          {showPreview && <Preview />}
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </VaultProvider>
   )
 }
-
-export default App
