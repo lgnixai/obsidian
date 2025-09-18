@@ -2,19 +2,44 @@ import React, { useState } from 'react';
 import { useAppStore } from '../stores/useAppStore';
 import { useKeyboardShortcuts } from '../hooks/useKeyboardShortcuts';
 import Sidebar from './Sidebar';
-import Editor from './Editor';
-import Preview from './Preview';
+import Workspace from './Workspace';
 import Toolbar from './Toolbar';
 import SearchModal from './SearchModal';
 
 const Layout: React.FC = () => {
-  const { theme, togglePreviewMode, setTheme } = useAppStore();
+  const { 
+    theme, 
+    togglePreviewMode, 
+    setTheme,
+    switchToNextTab,
+    switchToPrevTab,
+    closeCurrentTab,
+    createNewTab,
+    splitTabGroup,
+    workspace
+  } = useAppStore();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   useKeyboardShortcuts({
     onSearch: () => setIsSearchOpen(true),
     onTogglePreview: togglePreviewMode,
     onToggleTheme: () => setTheme(theme === 'light' ? 'dark' : 'light'),
+    onNewTab: createNewTab,
+    onCloseTab: closeCurrentTab,
+    onNextTab: switchToNextTab,
+    onPrevTab: switchToPrevTab,
+    onSplitHorizontal: () => {
+      const activeGroupId = workspace.activeGroupId;
+      if (activeGroupId) {
+        splitTabGroup(activeGroupId, 'horizontal');
+      }
+    },
+    onSplitVertical: () => {
+      const activeGroupId = workspace.activeGroupId;
+      if (activeGroupId) {
+        splitTabGroup(activeGroupId, 'vertical');
+      }
+    },
   });
 
   return (
@@ -23,10 +48,7 @@ const Layout: React.FC = () => {
         <Sidebar />
         <div className="flex-1 flex flex-col">
           <Toolbar onSearchOpen={() => setIsSearchOpen(true)} />
-          <div className="flex-1 flex">
-            <Editor />
-            <Preview />
-          </div>
+          <Workspace />
         </div>
       </div>
       
