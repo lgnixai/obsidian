@@ -2,6 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Search, X, File } from 'lucide-react';
 import { useAppStore } from '../stores/useAppStore';
 import type { FileNode } from '../types';
+import { Button } from './ui/button';
+import { Input } from './ui/input';
+import { ScrollArea } from './ui/scroll-area';
+import { Separator } from './ui/separator';
+import { cn } from '../lib/utils';
 
 interface SearchResult {
   file: FileNode;
@@ -96,7 +101,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
     return (
       <>
         {text.slice(0, matchStart)}
-        <span className="bg-yellow-200 dark:bg-yellow-800 px-1 rounded">
+        <span className="bg-obsidian-text-accent/20 text-obsidian-text-accent px-1 rounded">
           {text.slice(matchStart, matchEnd)}
         </span>
         {text.slice(matchEnd)}
@@ -109,57 +114,60 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="fixed inset-0 bg-black bg-opacity-50" onClick={onClose} />
-      <div className="relative bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-2xl mx-4 max-h-[80vh] flex flex-col">
+      <div className="relative bg-obsidian-bg-primary rounded-lg shadow-xl w-full max-w-2xl mx-4 max-h-[80vh] flex flex-col border border-obsidian-divider">
         {/* Header */}
-        <div className="flex items-center p-4 border-b border-gray-200 dark:border-gray-600">
-          <Search className="w-5 h-5 text-gray-400 mr-3" />
-          <input
+        <div className="flex items-center p-4 border-b border-obsidian-divider">
+          <Search className="w-5 h-5 text-obsidian-text-muted mr-3" />
+          <Input
             type="text"
             placeholder="Search in all files..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="flex-1 bg-transparent text-gray-900 dark:text-gray-100 placeholder-gray-500 focus:outline-none"
+            className="flex-1 bg-transparent border-none focus-visible:ring-0 text-obsidian-text-normal placeholder:text-obsidian-text-muted"
             autoFocus
           />
-          <button
+          <Button
             onClick={onClose}
-            className="ml-3 p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+            variant="ghost"
+            size="icon"
+            className="ml-3 text-obsidian-text-muted hover:text-obsidian-text-normal hover:bg-obsidian-interactive-hover"
           >
-            <X className="w-4 h-4 text-gray-500" />
-          </button>
+            <X className="w-4 h-4" />
+          </Button>
         </div>
 
         {/* Results */}
-        <div className="flex-1 overflow-y-auto p-4">
+        <ScrollArea className="flex-1 p-4">
           {query.trim() && results.length === 0 && (
-            <div className="text-center text-gray-500 dark:text-gray-400 py-8">
+            <div className="text-center text-obsidian-text-muted py-8">
               No results found for "{query}"
             </div>
           )}
 
           {results.map((result, resultIndex) => (
             <div key={`${result.file.id}-${resultIndex}`} className="mb-6">
-              <button
+              <Button
                 onClick={() => handleFileSelect(result.file)}
-                className="flex items-center w-full text-left p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 mb-2"
+                variant="ghost"
+                className="flex items-center w-full justify-start text-left p-2 h-auto hover:bg-obsidian-interactive-hover mb-2"
               >
-                <File className="w-4 h-4 text-blue-500 mr-2" />
-                <span className="font-medium text-gray-900 dark:text-gray-100">
+                <File className="w-4 h-4 text-obsidian-text-accent mr-2" />
+                <span className="font-medium text-obsidian-text-normal">
                   {result.file.name}
                 </span>
-                <span className="ml-2 text-xs text-gray-500 dark:text-gray-400">
+                <span className="ml-2 text-xs text-obsidian-text-muted">
                   {result.matches.length} match{result.matches.length !== 1 ? 'es' : ''}
                 </span>
-              </button>
+              </Button>
 
               <div className="ml-6 space-y-1">
                 {result.matches.slice(0, 3).map((match, matchIndex) => (
                   <div
                     key={matchIndex}
-                    className="text-sm text-gray-600 dark:text-gray-300 p-2 bg-gray-50 dark:bg-gray-700 rounded"
+                    className="text-sm text-obsidian-text-muted p-2 bg-obsidian-bg-secondary rounded"
                   >
                     <div className="flex items-center mb-1">
-                      <span className="text-xs text-gray-400 mr-2">
+                      <span className="text-xs text-obsidian-text-faint mr-2">
                         Line {match.line}:
                       </span>
                     </div>
@@ -169,17 +177,17 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
                   </div>
                 ))}
                 {result.matches.length > 3 && (
-                  <div className="text-xs text-gray-500 dark:text-gray-400 ml-2">
+                  <div className="text-xs text-obsidian-text-faint ml-2">
                     +{result.matches.length - 3} more matches
                   </div>
                 )}
               </div>
             </div>
           ))}
-        </div>
+        </ScrollArea>
 
         {/* Footer */}
-        <div className="p-3 border-t border-gray-200 dark:border-gray-600 text-xs text-gray-500 dark:text-gray-400">
+        <div className="p-3 border-t border-obsidian-divider text-xs text-obsidian-text-faint">
           <div className="flex justify-between">
             <span>
               {results.reduce((total, result) => total + result.matches.length, 0)} results

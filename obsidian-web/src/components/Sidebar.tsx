@@ -10,6 +10,11 @@ import {
 } from 'lucide-react';
 import { useAppStore } from '../stores/useAppStore';
 import type { FileNode } from '../types';
+import { Button } from './ui/button';
+import { Input } from './ui/input';
+import { ScrollArea } from './ui/scroll-area';
+import { Separator } from './ui/separator';
+import { cn } from '../lib/utils';
 
 const Sidebar: React.FC = () => {
   const { 
@@ -81,25 +86,29 @@ const Sidebar: React.FC = () => {
     return files.map((file) => (
       <div key={file.id}>
         <div
-          className={`flex items-center px-2 py-1 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 ${
-            currentFile?.id === file.id ? 'bg-blue-100 dark:bg-blue-900' : ''
-          }`}
+          className={cn(
+            "flex items-center px-2 py-1 cursor-pointer rounded-sm transition-colors",
+            "hover:bg-obsidian-interactive-hover",
+            currentFile?.id === file.id 
+              ? "bg-obsidian-interactive-accent text-white" 
+              : "text-obsidian-text-normal"
+          )}
           style={{ paddingLeft: `${level * 16 + 8}px` }}
           onClick={() => handleFileClick(file)}
           onContextMenu={(e) => handleContextMenu(e, file)}
         >
           {file.type === 'folder' ? (
             file.isExpanded ? (
-              <FolderOpen className="w-4 h-4 mr-2 text-blue-500" />
+              <FolderOpen className="w-4 h-4 mr-2 text-obsidian-text-accent" />
             ) : (
-              <Folder className="w-4 h-4 mr-2 text-blue-500" />
+              <Folder className="w-4 h-4 mr-2 text-obsidian-text-accent" />
             )
           ) : (
-            <File className="w-4 h-4 mr-2 text-gray-600 dark:text-gray-400" />
+            <File className="w-4 h-4 mr-2 text-obsidian-text-muted" />
           )}
           
           {editingFile === file.id ? (
-            <input
+            <Input
               type="text"
               value={editName}
               onChange={(e) => setEditName(e.target.value)}
@@ -108,7 +117,7 @@ const Sidebar: React.FC = () => {
                 if (e.key === 'Enter') handleRenameSubmit(file.id);
                 if (e.key === 'Escape') setEditingFile(null);
               }}
-              className="flex-1 bg-transparent border-b border-blue-500 focus:outline-none"
+              className="flex-1 h-6 text-xs bg-transparent border-b border-obsidian-text-accent focus-visible:ring-0"
               autoFocus
             />
           ) : (
@@ -127,47 +136,53 @@ const Sidebar: React.FC = () => {
 
   return (
     <>
-      <div className="w-64 bg-gray-50 dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col">
+      <div className="w-64 bg-obsidian-bg-secondary border-r border-obsidian-divider flex flex-col">
         {/* Search Bar */}
-        <div className="p-3 border-b border-gray-200 dark:border-gray-700">
+        <div className="p-3 border-b border-obsidian-divider">
           <div className="relative">
-            <Search className="absolute left-2 top-2 w-4 h-4 text-gray-400" />
-            <input
+            <Search className="absolute left-2 top-2.5 w-4 h-4 text-obsidian-text-muted" />
+            <Input
               type="text"
               placeholder="Search files..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-8 pr-3 py-1 text-sm bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full pl-8 pr-3 text-sm bg-obsidian-bg-primary border-obsidian-divider"
             />
           </div>
         </div>
 
         {/* New File/Folder Buttons */}
-        <div className="p-2 border-b border-gray-200 dark:border-gray-700">
+        <div className="p-2 border-b border-obsidian-divider">
           <div className="flex gap-1">
-            <button
+            <Button
               onClick={() => handleNewFile('/', 'file')}
-              className="flex items-center px-2 py-1 text-xs bg-blue-500 text-white rounded hover:bg-blue-600"
+              variant="obsidian-accent"
+              size="sm"
+              className="text-xs"
               title="New File"
             >
               <Plus className="w-3 h-3 mr-1" />
               File
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={() => handleNewFile('/', 'folder')}
-              className="flex items-center px-2 py-1 text-xs bg-green-500 text-white rounded hover:bg-green-600"
+              variant="obsidian"
+              size="sm"
+              className="text-xs"
               title="New Folder"
             >
               <Plus className="w-3 h-3 mr-1" />
               Folder
-            </button>
+            </Button>
           </div>
         </div>
 
         {/* File Tree */}
-        <div className="flex-1 overflow-y-auto">
-          {renderFileTree(files)}
-        </div>
+        <ScrollArea className="flex-1">
+          <div className="p-2">
+            {renderFileTree(files)}
+          </div>
+        </ScrollArea>
       </div>
 
       {/* Context Menu */}
@@ -178,34 +193,34 @@ const Sidebar: React.FC = () => {
             onClick={() => setContextMenu(null)}
           />
           <div
-            className="fixed z-20 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded shadow-lg py-1"
+            className="fixed z-20 bg-obsidian-bg-primary border border-obsidian-divider rounded shadow-lg py-1 min-w-[160px]"
             style={{ left: contextMenu.x, top: contextMenu.y }}
           >
             <button
               onClick={() => handleNewFile(contextMenu.file.path, 'file')}
-              className="w-full px-3 py-1 text-left text-sm hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center"
+              className="w-full px-3 py-2 text-left text-sm hover:bg-obsidian-interactive-hover flex items-center text-obsidian-text-normal"
             >
               <Plus className="w-4 h-4 mr-2" />
               New File
             </button>
             <button
               onClick={() => handleNewFile(contextMenu.file.path, 'folder')}
-              className="w-full px-3 py-1 text-left text-sm hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center"
+              className="w-full px-3 py-2 text-left text-sm hover:bg-obsidian-interactive-hover flex items-center text-obsidian-text-normal"
             >
               <Plus className="w-4 h-4 mr-2" />
               New Folder
             </button>
-            <hr className="my-1 border-gray-200 dark:border-gray-600" />
+            <Separator className="my-1" />
             <button
               onClick={() => handleRename(contextMenu.file)}
-              className="w-full px-3 py-1 text-left text-sm hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center"
+              className="w-full px-3 py-2 text-left text-sm hover:bg-obsidian-interactive-hover flex items-center text-obsidian-text-normal"
             >
               <Edit className="w-4 h-4 mr-2" />
               Rename
             </button>
             <button
               onClick={() => handleDelete(contextMenu.file)}
-              className="w-full px-3 py-1 text-left text-sm hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center text-red-600"
+              className="w-full px-3 py-2 text-left text-sm hover:bg-obsidian-interactive-hover flex items-center text-destructive"
             >
               <Trash2 className="w-4 h-4 mr-2" />
               Delete

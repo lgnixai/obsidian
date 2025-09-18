@@ -4,26 +4,76 @@
 
 @layer base {
   :root {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 85.7% 97.3%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
+    /* Light theme - Obsidian inspired */
+    --background: 0 0% 100%;
+    --foreground: 224 71.4% 4.1%;
+    --card: 0 0% 100%;
+    --card-foreground: 224 71.4% 4.1%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71.4% 4.1%;
+    --primary: 262.1 83.3% 57.8%;
+    --primary-foreground: 210 20% 98%;
+    --secondary: 220 14.3% 95.9%;
+    --secondary-foreground: 220.9 39.3% 11%;
+    --muted: 220 14.3% 95.9%;
+    --muted-foreground: 220 8.9% 46.1%;
+    --accent: 220 14.3% 95.9%;
+    --accent-foreground: 220.9 39.3% 11%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 262.1 83.3% 57.8%;
     --radius: 0.5rem;
+
+    /* Obsidian specific variables */
+    --obsidian-bg-primary: 0 0% 100%;
+    --obsidian-bg-secondary: 210 11% 96%;
+    --obsidian-bg-secondary-alt: 206 12% 90%;
+    --obsidian-text-normal: 217 9% 45%;
+    --obsidian-text-muted: 215 14% 71%;
+    --obsidian-text-faint: 214 20% 81%;
+    --obsidian-text-accent: 262.1 83.3% 57.8%;
+    --obsidian-interactive-normal: 210 11% 96%;
+    --obsidian-interactive-hover: 206 12% 90%;
+    --obsidian-interactive-accent: 262.1 83.3% 57.8%;
+    --obsidian-divider: 220 13% 91%;
+  }
+
+  .dark {
+    /* Dark theme - Obsidian dark */
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 262.1 83.3% 57.8%;
+    --primary-foreground: 222.2 84% 4.9%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 262.1 83.3% 57.8%;
+
+    /* Obsidian dark specific variables */
+    --obsidian-bg-primary: 222.2 84% 4.9%;
+    --obsidian-bg-secondary: 220 13% 18%;
+    --obsidian-bg-secondary-alt: 215 25% 27%;
+    --obsidian-text-normal: 210 40% 98%;
+    --obsidian-text-muted: 215 20.2% 65.1%;
+    --obsidian-text-faint: 217.9 10.6% 64.9%;
+    --obsidian-text-accent: 262.1 83.3% 57.8%;
+    --obsidian-interactive-normal: 217.2 32.6% 17.5%;
+    --obsidian-interactive-hover: 215 25% 27%;
+    --obsidian-interactive-accent: 262.1 83.3% 57.8%;
+    --obsidian-divider: 217.2 32.6% 17.5%;
   }
   * {
     @apply border-border;

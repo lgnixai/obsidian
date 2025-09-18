@@ -44,7 +44,7 @@ const Layout: React.FC = () => {
 
   return (
     <div className={`h-screen flex flex-col ${theme === 'dark' ? 'dark' : ''}`}>
-      <div className="flex-1 flex bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+      <div className="flex-1 flex bg-obsidian-bg-primary text-obsidian-text-normal">
         <Sidebar />
         <div className="flex-1 flex flex-col">
           <Toolbar onSearchOpen={() => setIsSearchOpen(true)} />

@@ -48,6 +48,20 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // Obsidian specific colors
+        obsidian: {
+          'bg-primary': 'hsl(var(--obsidian-bg-primary))',
+          'bg-secondary': 'hsl(var(--obsidian-bg-secondary))',
+          'bg-secondary-alt': 'hsl(var(--obsidian-bg-secondary-alt))',
+          'text-normal': 'hsl(var(--obsidian-text-normal))',
+          'text-muted': 'hsl(var(--obsidian-text-muted))',
+          'text-faint': 'hsl(var(--obsidian-text-faint))',
+          'text-accent': 'hsl(var(--obsidian-text-accent))',
+          'interactive-normal': 'hsl(var(--obsidian-interactive-normal))',
+          'interactive-hover': 'hsl(var(--obsidian-interactive-hover))',
+          'interactive-accent': 'hsl(var(--obsidian-interactive-accent))',
+          'divider': 'hsl(var(--obsidian-divider))',
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
